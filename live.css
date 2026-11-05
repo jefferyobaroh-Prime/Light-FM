@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.liveHeroSec {
+    padding-top: 12rem;
+    padding-bottom: 8rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #0a1f44;
+    background-image: radial-gradient(circle at 85% 20%, rgba(30, 111, 217, 0.45) 0%, rgba(10, 31, 68, 0) 45%);
+}
+
+.eqBars {
+    position: absolute;
+    right: 10rem;
+    bottom: 2rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.eqBars span {
+    width: 3px;
+    height: var(--h);
+    border-radius: 3px;
+    background-color: rgba(120, 160, 220, 0.35);
+}
+
+.liveHero h3 {
+    color: #1e6fd9;
+    padding-bottom: 1rem;
+}
+
+.liveHero h1 {
+    color: white;
+    font-size: 3.3rem;
+    padding-bottom: 1rem;
+}
+
+.liveHero p {
+    color: rgba(255, 255, 255, 0.445);
+    font-size: 1.3rem;
+    width: 65%;
+}

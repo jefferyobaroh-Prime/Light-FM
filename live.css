@@ -48,3 +48,181 @@
     font-size: 1.3rem;
     width: 65%;
 }
+
+.nowPlayingSec {
+    height: 130vh;
+}
+
+.nowPlayingCard {
+    width: 45%;
+    height: 90vh;
+    background-color: white;
+    border-radius: 2rem;
+    box-shadow: 0 0 10px 5px rgb(133, 130, 130);
+    z-index: 10;
+    margin-top: -3rem;
+    overflow: hidden;
+    position: absolute;
+}
+
+.nowPlayingCard img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+}
+
+.nowPlayingCard h4 {
+    color: #1e6fd9;
+    padding-left: 2rem;
+}
+
+.nowPlayingCard h1 {
+    color: #0a1f44;
+    padding-left: 2rem;
+}
+
+.nowPlayingCard p {
+    padding-left: 2rem;
+    color: rgba(0, 0, 0, 0.671);
+}
+
+.upNext {
+    padding: 1rem 0;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    background-color: #e8f1fd;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border-radius: 1rem;
+}
+
+.next {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.next p {
+    margin-left: -2rem;
+    font-size: .8rem;
+}
+
+.upNext h6 {
+    color: #1e6fd9;
+}
+
+.requestForm {
+    position: absolute;
+    margin-left: 41rem;
+    background-color: #e2eefd;
+    padding: 2rem 2rem;
+    border-radius: 2rem;
+    width: 28%;
+    margin-top: -2rem;
+    z-index: -1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    margin-top: 1.3rem;
+}
+
+form input {
+    padding: .7rem 1rem;
+    outline: none;
+    border: none;
+    border-radius: 999px;
+}
+
+form textarea {
+    outline: none;
+    border: none;
+    border-radius: 1rem;
+    padding: .7rem 1rem;
+}
+
+form button {
+    background-color: #1e6fd9;
+    color: white;
+    border: none;
+    padding-block: 1rem;
+    border-radius: 999px;
+}
+
+.topDiv {
+    background-color: #1e6fd9;
+    border-radius: 10px;
+    width: 15%;
+    padding-block: .7rem;
+}
+
+.requestForm h1 {
+    color: #0a1f44;
+    padding-top: 1.3rem;
+    font-size: 1.4rem;
+}
+
+.requestForm p {
+    color: rgba(0, 0, 0, 0.671);
+    font-size: .8rem;
+    width: 80%;
+    padding-top: .3rem;
+}
+
+.justPlayedSec {
+    position: absolute;
+    margin-top: 37rem;
+    width: 76%;
+}
+
+.justPlayedSec h3 {
+    color: #1e6fd9;
+}
+
+.justPlayedSec h1 {
+    color: #0a1f44;
+}
+
+.justPlayedWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.justPlayedCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1rem;
+    width: 32%;
+    box-shadow: 0 0 6px 0 grey;
+    padding: 1.2rem 1rem;
+}
+
+.IconDiv {
+    height: 7vh;
+    width: 15%;
+    border-radius: 10px;
+    background-color: #e2eefd;
+    padding: .8rem;
+}
+
+.songDiv {
+    width: 70%;
+}
+
+.songDiv h6 {
+    color: #0a1f44;
+    font-size: 1rem;
+}
+
+.justPlayedCard p {
+    font-size: .7rem;
+    color: rgba(0, 0, 0, 0.671);
+}

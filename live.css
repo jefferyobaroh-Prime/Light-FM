@@ -33,7 +33,7 @@
 }
 
 .liveHero h3 {
-    color: #1e6fd9;
+    color: #69b5ff;
     padding-bottom: 1rem;
 }
 
@@ -225,4 +225,221 @@ form button {
 .justPlayedCard p {
     font-size: .7rem;
     color: rgba(0, 0, 0, 0.671);
+}
+
+/* =====================================================
+   LIGHT FM - LIVE PAGE RESPONSIVE
+   Paste at the very END of live.css (after all desktop rules).
+   Nav and footer are already handled by the responsive rules in style.css.
+   ===================================================== */
+
+
+/* ---------- TABLET: up to 1024px ---------- */
+@media (max-width: 1024px) {
+
+    /* HERO */
+    .liveHeroSec {
+        padding-top: 8rem;
+        padding-bottom: 6rem;
+    }
+
+    .eqBars {
+        right: 2rem;
+        bottom: 1.5rem;
+    }
+
+    .liveHero {
+        position: relative;
+        z-index: 1;
+    }
+
+    .liveHero h1 {
+        font-size: 2.6rem;
+    }
+
+    .liveHero p {
+        width: 100%;
+        font-size: 1.1rem;
+    }
+
+    /* NOW PLAYING + REQUEST FORM: absolute positions replaced with a grid */
+    .nowPlayingSec {
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        align-items: stretch;
+        position: relative;
+        z-index: 2;
+        margin-top: -3rem;
+        padding-bottom: 4rem;
+    }
+
+    .nowPlayingCard,
+    .requestForm,
+    .justPlayedSec {
+        position: static;
+        margin: 0;
+        width: 100%;
+        z-index: auto;
+    }
+
+    .nowPlaying {
+        height: 100%;
+    }
+
+    .nowPlayingCard {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1.5rem;
+    }
+
+    .nowPlayingCard img {
+        height: auto;
+        min-height: 260px;
+        flex: 1;
+    }
+
+    .nowPlayingCard h4 {
+        padding-top: 1rem;
+    }
+
+    .next {
+        gap: 1rem;
+    }
+
+    .next p:last-child {
+        white-space: nowrap;
+    }
+
+    .requestForm {
+        padding: 1.5rem;
+    }
+
+    .requestForm p {
+        width: 100%;
+    }
+
+    .topDiv {
+        width: 3rem;
+        height: 3rem;
+        padding-block: 0;
+    }
+
+    /* JUST PLAYED: 3 across */
+    .justPlayedSec {
+        grid-column: 1 / -1;
+        margin-top: 1.5rem;
+    }
+
+    .justPlayedWrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .justPlayedCard {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .IconDiv {
+        width: 3rem;
+        height: 3rem;
+        flex-shrink: 0;
+    }
+
+    .songDiv {
+        flex: 1;
+        width: auto;
+        padding-inline: .75rem;
+    }
+}
+
+
+/* ---------- SMALL TABLET: up to 768px ---------- */
+@media (max-width: 768px) {
+
+    .nowPlayingSec {
+        grid-template-columns: 1fr;
+    }
+
+    .nowPlayingCard img {
+        flex: none;
+        height: 300px;
+    }
+
+    .justPlayedWrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ---------- MOBILE: up to 600px ---------- */
+@media (max-width: 600px) {
+
+    /* HERO */
+    .liveHeroSec {
+        padding-top: 7rem;
+        padding-bottom: 5rem;
+    }
+
+    .eqBars {
+        right: 1rem;
+        bottom: 1rem;
+        opacity: .7;
+        transform: scale(.6);
+        transform-origin: bottom right;
+    }
+
+    .liveHero h3 {
+        font-size: .85rem;
+    }
+
+    .liveHero h1 {
+        font-size: 2rem;
+    }
+
+    .liveHero p {
+        font-size: 1rem;
+    }
+
+    /* NOW PLAYING */
+    .nowPlayingSec {
+        gap: 1.25rem;
+        padding-bottom: 3rem;
+    }
+
+    .nowPlayingCard {
+        border-radius: 1.5rem;
+    }
+
+    .nowPlayingCard img {
+        height: 220px;
+        min-height: 0;
+    }
+
+    .nowPlayingCard h1 {
+        font-size: 1.6rem;
+    }
+
+    /* REQUEST FORM */
+    .requestForm {
+        padding: 1.25rem;
+        border-radius: 1.5rem;
+    }
+
+    form {
+        gap: 1rem;
+    }
+
+    /* JUST PLAYED */
+    .justPlayedSec h1 {
+        font-size: 1.5rem;
+    }
+
+    .justPlayedWrapper {
+        margin-top: 1.25rem;
+    }
 }

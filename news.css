@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.newsHeroSec {
+    padding-top: 12rem;
+    padding-bottom: 5rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #0a1f44;
+    background-image: radial-gradient(circle at 85% 20%, rgba(30, 111, 217, 0.45) 0%, rgba(10, 31, 68, 0) 45%);
+}
+
+.eqBars {
+    position: absolute;
+    right: 10rem;
+    bottom: 2rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.eqBars span {
+    width: 3px;
+    height: var(--h);
+    border-radius: 3px;
+    background-color: rgba(120, 160, 220, 0.35);
+}
+
+.newsHero h3 {
+    color: #69b5ff;
+    padding-bottom: 1rem;
+}
+
+.newsHero h1 {
+    color: white;
+    font-size: 3.3rem;
+    padding-bottom: 1rem;
+    width: 70%;
+    line-height: 3rem;
+}
+
+.newsHero p {
+    color: rgba(255, 255, 255, 0.445);
+    font-size: 1rem;
+    width: 65%;
+}
+
+.newsSec {
+    padding-block: 4rem;
+}
+
+.topNews {
+    display: flex;
+    flex-direction: row;
+    height: 110vh;
+    overflow: hidden;
+    border-radius: 2rem;
+}
+
+.topNews img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.coverStory {
+    background-color: #0a1f44;
+    padding: 15.5rem 2rem 0;
+}
+
+.coverStory h5 {
+    color: #69b5ff;
+    padding-bottom: 1rem;
+}
+
+.coverStory h3 {
+    font-size: 2rem;
+    line-height: 2.3rem;
+    color: white;
+    padding-bottom: 1rem;
+}
+
+.coverStory p {
+    color: rgba(255, 255, 255, 0.445);
+    font-size: .8rem;
+    padding-bottom: 1.5rem;
+}
+
+.coverStory button {
+    border: none;
+    border-radius: 999px;
+    background-color: #1e6fd9;
+    color: white;
+    padding: .7rem 1rem;
+}
+
+.newsListSec {
+    padding-top: 3rem;
+}
+
+.newsCatWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.newsCat {
+    color: #0a1f44;
+    background-color: #e8f1fd;
+    padding: .6rem 1rem;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.newsCat1 {
+    color: white;
+    background-color: #1e6fd9;
+    padding: .6rem 1rem;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.newsWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding-top: 2rem;
+}
+
+.newsCard {
+    height: 70vh;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 5px 0 rgb(207, 202, 202);
+}
+
+.newsCard img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+}
+
+.categry {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 1rem;
+}
+
+.categry h6 {
+    color: #1e6fd9;
+    font-size: .7rem;
+}
+
+.categry p {
+    font-size: .6rem;
+    color: rgba(0, 0, 0, 0.671);
+}
+
+.newsCard h4 {
+    color: #0a1f44;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    line-height: 1.2rem;
+}
+
+.newsCard p {
+    font-size: .8rem;
+    color: rgba(0, 0, 0, 0.671);
+    padding-inline: 1rem;
+}
+
+.newsCard button {
+    background-color: transparent;
+    border: none;
+    color: #1e6fd9;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+.newsCard button:hover {
+    cursor: pointer;
+    color: #0a1f44;
+}
+
+/* =====================================================
+   LIGHT FM - NEWS PAGE RESPONSIVE
+   Paste at the very END of news.css (after all desktop rules).
+   Nav and footer are already handled by the responsive rules in style.css.
+   ===================================================== */
+
+
+/* ---------- TABLET: up to 1024px ---------- */
+@media (max-width: 1024px) {
+
+    /* HERO */
+    .newsHeroSec {
+        padding-top: 8rem;
+        padding-bottom: 4rem;
+    }
+
+    .eqBars {
+        right: 2rem;
+        bottom: 1.5rem;
+    }
+
+    .newsHero {
+        position: relative;
+        z-index: 1;
+    }
+
+    .newsHero h1 {
+        width: 100%;
+        font-size: 2.6rem;
+        line-height: 1.15;
+    }
+
+    .newsHero p {
+        width: 70%;
+    }
+
+    .newsSec {
+        padding-block: 3rem;
+    }
+
+    /* FEATURED STORY: image left, text right, height follows the content */
+    .topNews {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: minmax(420px, auto);
+        height: auto;
+        border-radius: 1.5rem;
+    }
+
+    .topNews img {
+        height: 0;
+        min-height: 100%;
+    }
+
+    .coverStory {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 2.5rem 2rem;
+    }
+
+    .coverStory h3 {
+        font-size: 1.7rem;
+        line-height: 1.3;
+    }
+
+    /* CATEGORY FILTERS + ARTICLE CARDS */
+    .newsListSec {
+        padding-top: 2rem;
+    }
+
+    .newsCatWrapper {
+        flex-wrap: wrap;
+        gap: .6rem;
+    }
+
+    .newsWrapper {
+        gap: 1.5rem;
+    }
+
+    .newsCard {
+        height: auto;
+        padding-bottom: 1.25rem;
+    }
+
+    .newsCard img {
+        height: auto;
+        aspect-ratio: 16 / 10;
+    }
+
+    .categry {
+        padding: .9rem 1rem 0;
+    }
+}
+
+
+/* ---------- SMALL TABLET: up to 768px ---------- */
+@media (max-width: 768px) {
+
+    /* featured story stacks: image on top */
+    .topNews {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .topNews img {
+        height: 280px;
+        min-height: 0;
+    }
+
+    .coverStory {
+        padding: 2rem 1.5rem;
+    }
+
+    .newsWrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* ---------- MOBILE: up to 600px ---------- */
+@media (max-width: 600px) {
+
+    /* HERO */
+    .newsHeroSec {
+        padding-top: 7rem;
+        padding-bottom: 5.5rem;
+    }
+
+    .eqBars {
+        right: 1rem;
+        bottom: 1rem;
+        opacity: .7;
+        transform: scale(.6);
+        transform-origin: bottom right;
+    }
+
+    .newsHero h3 {
+        font-size: .85rem;
+    }
+
+    .newsHero h1 {
+        font-size: 2rem;
+    }
+
+    .newsHero p {
+        width: 100%;
+    }
+
+    .newsSec {
+        padding-block: 2.5rem;
+    }
+
+    /* FEATURED STORY */
+    .topNews {
+        border-radius: 1.25rem;
+    }
+
+    .topNews img {
+        height: 220px;
+    }
+
+    .coverStory {
+        padding: 1.5rem 1.25rem 2rem;
+    }
+
+    .coverStory h3 {
+        font-size: 1.5rem;
+    }
+
+    /* ARTICLE CARDS: 1 across */
+    .newsWrapper {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+}

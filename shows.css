@@ -33,8 +33,8 @@
 }
 
 .showsHero h3 {
-    color: #1e6fd9;
-    padding: 1rem;
+    color: #69b5ff;
+    padding-bottom: 1rem;
 }
 
 .showsHero h1 {
@@ -74,7 +74,7 @@
     padding-bottom: 1rem;
     background-color: #e8f1fd;
     border-radius: 1rem;
-    padding: 1rem 1rem;
+    padding: 1rem 4rem;
 }
 
 .days {
@@ -160,4 +160,276 @@
     margin-top: 1rem;
 }
 
+.showAdSec {
+    background-color: #e8f1fd;
+    display: flex;
+    flex-direction: row;
+    padding-block: 2rem 4rem;
+    gap: 2rem;
+}
+
+.adPic {
+    width: 500px;
+    height: 50vh;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin-left: 2rem;
+}
+
+.adPic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.adContent {
+    padding-top: 4rem;
+}
+
+.adContent h4 {
+    color: #1e6fd9;
+}
+
+.adContent h2 {
+    color: #0a1f44;
+    font-size: 2.2rem;
+    padding-bottom: 1rem;
+}
+
+.adContent p {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.671);
+    width: 90%;
+    padding-bottom: 1.5rem;
+    color: #0a1f44;
+}
+
+.adDetails {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.adDay {
+    background-color: white;
+    border-radius: 999px;
+    padding: .2rem .5rem;
+    font-size: .9rem;
+}
+
+/* =====================================================
+   LIGHT FM - SHOWS PAGE RESPONSIVE
+   Paste at the very END of shows.css (after all desktop rules).
+   Nav and footer are already handled by the responsive rules in style.css.
+   ===================================================== */
+
+
+/* ---------- TABLET: up to 1024px ---------- */
+@media (max-width: 1024px) {
+
+    /* HERO */
+    .ShowsHeroSec {
+        padding-top: 8rem;
+        padding-bottom: 4rem;
+    }
+
+    .eqBars {
+        right: 2rem;
+        bottom: 1.5rem;
+    }
+
+    .showsHero {
+        position: relative;
+        z-index: 1;
+    }
+
+    .showsHero h1 {
+        font-size: 2.6rem;
+    }
+
+    .showsHero p {
+        width: 100%;
+        font-size: 1.1rem;
+    }
+
+    /* SHOW LIST */
+    .showListSec {
+        width: 100%;
+        margin: 0;
+        padding-block: 3rem;
+    }
+
+    .daysList {
+        padding: 1rem 2rem;
+    }
+
+    .days {
+        white-space: nowrap;
+    }
+
+    /* cards: negative-margin spacing replaced with a simple flex row */
+    .showListCard,
+    .showListCard1 {
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.25rem;
+    }
+
+    .timeSec {
+        min-width: 4rem;
+    }
+
+    .hostSec {
+        margin-left: 0;
+        flex-shrink: 0;
+    }
+
+    .showAbout {
+        margin-left: 0;
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* LIVE badge sits in the flow instead of floating */
+    .showAbout .liveUp {
+        position: static;
+        display: inline-block;
+        height: auto;
+        margin: 0 0 .3rem;
+    }
+
+    .playBtn {
+        flex-shrink: 0;
+        margin-top: 0;
+    }
+
+    /* WEEKEND SPOTLIGHT */
+    .showAdSec {
+        align-items: center;
+        gap: 2rem;
+        padding-block: 2.5rem;
+    }
+
+    .adPic {
+        width: 45%;
+        height: 320px;
+        flex-shrink: 0;
+        margin-left: 0;
+    }
+
+    .adContent {
+        padding-top: 0;
+    }
+
+    .adContent h2 {
+        font-size: 1.8rem;
+    }
+
+    .adContent p {
+        width: 100%;
+    }
+}
+
+
+/* ---------- SMALL TABLET: up to 768px ---------- */
+@media (max-width: 768px) {
+
+    .showAdSec {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+    }
+
+    .adPic {
+        width: 100%;
+        height: 260px;
+    }
+}
+
+
+/* ---------- MOBILE: up to 600px ---------- */
+@media (max-width: 600px) {
+
+    /* HERO */
+    .ShowsHeroSec {
+        padding-top: 7rem;
+        padding-bottom: 5.5rem;
+    }
+
+    .eqBars {
+        right: 1rem;
+        bottom: 1rem;
+        opacity: .7;
+        transform: scale(.6);
+        transform-origin: bottom right;
+    }
+
+    .showsHero h3 {
+        font-size: .85rem;
+    }
+
+    .showsHero h1 {
+        font-size: 2rem;
+    }
+
+    .showsHero p {
+        font-size: 1rem;
+    }
+
+    /* SHOW LIST */
+    .showListSec {
+        padding-block: 2.5rem;
+    }
+
+    .daysList {
+        padding: .9rem .75rem;
+        gap: .5rem;
+        overflow-x: auto;
+    }
+
+    .days {
+        font-size: .75rem;
+    }
+
+    .showListCard,
+    .showListCard1 {
+        gap: .75rem;
+        padding: .85rem;
+    }
+
+    .timeSec {
+        min-width: 3rem;
+    }
+
+    .timeSec h3 {
+        font-size: 1rem;
+    }
+
+    .hostSec {
+        width: 44px;
+        height: 48px;
+    }
+
+    .showAbout h4 {
+        font-size: .95rem;
+    }
+
+    .playBtn {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* WEEKEND SPOTLIGHT */
+    .showAdSec {
+        padding-block: 2rem 2.5rem;
+    }
+
+    .adPic {
+        height: 220px;
+    }
+
+    .adContent h2 {
+        font-size: 1.5rem;
+    }
+}
 

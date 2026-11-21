@@ -1,0 +1,449 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.aboutHeroSec {
+    padding-top: 12rem;
+    padding-bottom: 5rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #0a1f44;
+    background-image: radial-gradient(circle at 85% 20%, rgba(30, 111, 217, 0.45) 0%, rgba(10, 31, 68, 0) 45%);
+}
+
+.eqBars {
+    position: absolute;
+    right: 10rem;
+    bottom: 2rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.eqBars span {
+    width: 3px;
+    height: var(--h);
+    border-radius: 3px;
+    background-color: rgba(120, 160, 220, 0.35);
+}
+
+.aboutHero h3 {
+    color: #69b5ff;
+    padding-bottom: 1rem;
+}
+
+.aboutHero h1 {
+    color: white;
+    font-size: 3.3rem;
+    padding-bottom: 1rem;
+    width: 75%;
+    line-height: 3rem;
+}
+
+.aboutHero p {
+    color: rgba(255, 255, 255, 0.445);
+    font-size: 1rem;
+    width: 60%;
+}
+
+.ourStorySec {
+    padding-bottom: 4rem;
+}
+
+.ourStory {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    height: 60vh;
+    margin-top: 4rem;
+}
+
+.ourStory img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.ourStoryWrapper {
+    padding-top: 5rem;
+}
+
+.ourStoryWrapper h5 {
+    color: #1e6fd9;
+    padding-bottom: .5rem;
+    font-size: 1.1rem;
+}
+
+.ourStoryWrapper h2 {
+    color: #0a1f44;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+
+.ourStoryWrapper p {
+    color: rgba(0, 0, 0, 0.671);
+    padding-bottom: 1rem;
+}
+
+.statSec {
+    background-color: #0a1f44;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 3rem 18rem;
+}
+
+.lightStats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightStats h2 {
+    color: #69b5ff;
+    font-size: 2rem;
+}
+
+.lightStats h5 {
+    color: rgba(255, 255, 255, 0.445);
+}
+
+.valuesSec {
+    background-color: #e8f1fd;
+    padding-block: 5rem;
+}
+
+.valuesSec h4 {
+    color: #1e6fd9;
+}
+
+.valuesSec h2 {
+    color: #0a1f44;
+    font-size: 2rem;
+    padding-bottom: 2rem;
+}
+
+.valuesWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.valuesCard {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+}
+
+.iconCard {
+    background-color: #1e6fd9;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.valuesCard h3 {
+    padding-top: 1.5rem;
+    color: #0a1f44;
+    font-size: 1.4rem;
+    padding-bottom: 1rem;
+}
+
+.valuesCard p {
+    color: rgba(0, 0, 0, 0.671);
+    font-size: .9rem;
+}
+
+.backstageSec {
+    padding-block: 5rem;
+}
+
+.backstageSec h4 {
+    color: #1e6fd9;
+}
+
+.backstageSec h2 {
+    color: #0a1f44;
+    font-size: 2.4rem;
+    width: 60%;
+    line-height: 3rem;
+    padding-block: 1rem;
+}
+
+.backstageSec p {
+    width: 60%;
+    color: rgba(4, 23, 49, 0.671);
+}
+
+.teamWrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-block: 2rem;
+}
+
+.backTeam {
+    height: 50vh;
+    box-shadow: 0 0 5px 0 rgb(221, 213, 213);
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+.backTeam img {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+}
+
+.backTeam h3 {
+    padding-left: 1rem;
+    color: #0a1f44;
+    font-size: 1rem;
+}
+
+.backTeam p {
+    color: #1e6fd9;
+    font-size: .8rem;
+    padding-left: 1rem;
+}
+
+/* =====================================================
+   LIGHT FM - ABOUT PAGE RESPONSIVE
+   Paste at the very END of about.css (after all desktop rules).
+   Nav and footer are already handled by the responsive rules in style.css.
+   ===================================================== */
+
+
+/* ---------- TABLET: up to 1024px ---------- */
+@media (max-width: 1024px) {
+
+    /* HERO */
+    .aboutHeroSec {
+        padding-top: 8rem;
+        padding-bottom: 4rem;
+    }
+
+    .eqBars {
+        right: 2rem;
+        bottom: 1.5rem;
+    }
+
+    .aboutHero {
+        position: relative;
+        z-index: 1;
+    }
+
+    .aboutHero h1 {
+        width: 100%;
+        font-size: 2.6rem;
+        line-height: 1.15;
+    }
+
+    .aboutHero p {
+        width: 70%;
+    }
+
+    /* OUR STORY: image left, text right */
+    .ourStorySec {
+        padding-bottom: 3rem;
+    }
+
+    .ourStory {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: minmax(340px, auto);
+        gap: 2rem;
+        height: auto;
+        margin-top: 3rem;
+    }
+
+    .ourStory img {
+        height: 0;
+        min-height: 100%;
+    }
+
+    .ourStoryWrapper {
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* STATS: the 18rem side padding replaced, 4 across */
+    .statSec {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        padding: 2.5rem 2rem;
+        text-align: center;
+    }
+
+    /* VALUES */
+    .valuesSec {
+        padding-block: 3rem;
+    }
+
+    .valuesWrapper {
+        gap: 1.5rem;
+    }
+
+    /* TEAM */
+    .backstageSec {
+        padding-block: 3rem;
+    }
+
+    .backstageSec h2 {
+        width: 100%;
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .backstageSec p {
+        width: 80%;
+    }
+
+    .teamWrapper {
+        gap: 1rem;
+    }
+
+    .backTeam {
+        height: auto;
+        padding-bottom: 1rem;
+    }
+
+    .backTeam img {
+        height: auto;
+        aspect-ratio: 1 / 1.1;
+    }
+
+    .backTeam h3 {
+        padding-top: .75rem;
+    }
+}
+
+
+/* ---------- SMALL TABLET: up to 768px ---------- */
+@media (max-width: 768px) {
+
+    /* our story stacks: image on top */
+    .ourStory {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 1.5rem;
+    }
+
+    .ourStory img {
+        height: 280px;
+        min-height: 0;
+    }
+
+    /* stats: 2 x 2 */
+    .statSec {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem 1rem;
+    }
+
+    /* values: 1 across */
+    .valuesWrapper {
+        grid-template-columns: 1fr;
+    }
+
+    /* team: 2 across, square photos */
+    .teamWrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .backTeam img {
+        aspect-ratio: 1 / 1;
+    }
+}
+
+
+/* ---------- MOBILE: up to 600px ---------- */
+@media (max-width: 600px) {
+
+    /* HERO */
+    .aboutHeroSec {
+        padding-top: 7rem;
+        padding-bottom: 5.5rem;
+    }
+
+    .eqBars {
+        right: 1rem;
+        bottom: 1rem;
+        opacity: .7;
+        transform: scale(.6);
+        transform-origin: bottom right;
+    }
+
+    .aboutHero h3 {
+        font-size: .85rem;
+    }
+
+    .aboutHero h1 {
+        font-size: 2rem;
+    }
+
+    .aboutHero p {
+        width: 100%;
+    }
+
+    /* OUR STORY */
+    .ourStory {
+        margin-top: 2.5rem;
+    }
+
+    .ourStory img {
+        height: 220px;
+    }
+
+    .ourStoryWrapper h2 {
+        font-size: 1.6rem;
+    }
+
+    /* STATS */
+    .statSec {
+        padding: 2rem 1.25rem;
+    }
+
+    .lightStats h2 {
+        font-size: 1.6rem;
+    }
+
+    .lightStats h5 {
+        font-size: .7rem;
+    }
+
+    /* VALUES */
+    .valuesSec {
+        padding-block: 2.5rem;
+    }
+
+    .valuesSec h2 {
+        font-size: 1.6rem;
+        padding-bottom: 1.5rem;
+    }
+
+    /* TEAM */
+    .backstageSec {
+        padding-block: 2.5rem;
+    }
+
+    .backstageSec h2 {
+        font-size: 1.6rem;
+    }
+
+    .backstageSec p {
+        width: 100%;
+    }
+
+    .teamWrapper {
+        gap: .75rem;
+    }
+}

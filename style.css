@@ -21,38 +21,53 @@
     padding-block: 1rem;
     font-size: 1.2rem;
     position: fixed;
-    background-color: rgba(255, 255, 255, 0.979);
-    opacity: 4;
+    background-color: rgba(255, 255, 255, 0.973);
+    opacity: 2;
     width: 100%;
     z-index: 100;
+    border-bottom: 1px solid #547fb83a;;
 }
 
 .hamburger, #toggle {
     display: none;
 }
 
-.logo {
+.logo a {
     display: flex;
     flex-direction: row;
+    text-decoration: none;
 }
 
 .innerNav {
-    display: flex;
-    gap: 1.5rem;
+    display: inline-grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: .7rem;
+    grid-row: auto;
+    align-content: start;
+    justify-items: start;
+    width: 45%;
 }
 
 .innerNav > a {
     text-decoration: none;
     text-transform: capitalize;
     color: #45556c;
-    font-size: 1rem;
+    font-size: .9rem;
+    padding: .2rem .5rem;
 }
 
 .innerNav > a:hover {
     color: #1e6fd9;
     cursor: pointer;
+    /* background-color: #e8f1fd;
+    padding: 0.3rem .7rem;
+    border-radius: 999px; */
+}
+
+.innerNav a.active {
+    color: #1e6fd9;
+    cursor: pointer;
     background-color: #e8f1fd;
-    padding: 0.3rem 1rem;
     border-radius: 999px;
 }
 
@@ -107,7 +122,7 @@
 }
 
 .liveText {
-    color: #1e6fd9;
+    color: #69b5ff;
 }
 
 .heroContent > p {
@@ -145,6 +160,7 @@
 }
 
 .div3 {
+    border: 8px solid #e8f1fd2c;
     width: 400px;
     height: 400px;
     border-radius: 100%;

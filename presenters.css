@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.PresentersHeroSec {
+    padding-top: 12rem;
+    padding-bottom: 5rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #0a1f44;
+    background-image: radial-gradient(circle at 85% 20%, rgba(30, 111, 217, 0.45) 0%, rgba(10, 31, 68, 0) 45%);
+}
+
+.eqBars {
+    position: absolute;
+    right: 10rem;
+    bottom: 2rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.eqBars span {
+    width: 3px;
+    height: var(--h);
+    border-radius: 3px;
+    background-color: rgba(120, 160, 220, 0.35);
+}
+
+.presentersHero h3 {
+    color: #69b5ff;
+    padding-bottom: 1rem;
+}
+
+.presentersHero h1 {
+    color: white;
+    font-size: 3.3rem;
+    padding-bottom: 1rem;
+    width: 70%;
+    line-height: 3rem;
+}
+
+.presentersHero p {
+    color: rgba(255, 255, 255, 0.445);
+    font-size: 1.3rem;
+    width: 65%;
+}
+
+.meetPresenters {
+    padding-block: 3rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    background-color: #f8fbff;
+}
+
+.ourPresenters {
+    height: 70vh;
+    border-radius: 1rem;
+    box-shadow: 0 0 5px 0 rgb(233, 229, 229);
+    overflow: hidden;
+    background-color: white;
+}
+
+.ourPresenters img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+}
+
+.ourPresenters h4 {
+    color: #1e6fd9;
+    font-size: .8rem;
+    padding-left: 1rem;
+}
+
+.ourPresenters h2 {
+    color: #0a1f44;
+    padding-left: 1rem;
+    padding-block: .2rem .7rem;
+}
+
+.ourPresenters p {
+    color: rgba(0, 0, 0, 0.671);
+    font-size: .8rem;
+    padding-left: 1rem;
+}
+
+.pSocials {
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+.stDi {
+    background-color: #e8f1fd;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+}
+
+.hireSec {
+    background-color: #1e6fd9;
+    color: white;
+    padding-block: 3rem;
+    display: flex;
+    flex-direction: row;
+    gap: 14rem;
+}
+
+.hireSec button {
+    padding: .2rem 1rem;
+    height: 40px;
+    margin-top: 1.9rem;
+    color: #1e6fd9;
+    border: none;
+    border-radius: 999px;
+    font-weight: 700;
+    box-shadow: 0 0 3px 0 black;
+}
+
+.hireAd h2 {
+    font-size: 2rem;
+}
+
+.hireAd p {
+    color: rgba(255, 255, 255, 0.445);
+}
+
+/* =====================================================
+   LIGHT FM - PRESENTERS PAGE RESPONSIVE
+   Paste at the very END of presenters.css (after all desktop rules).
+   Nav and footer are already handled by the responsive rules in style.css.
+   ===================================================== */
+
+
+/* ---------- TABLET: up to 1024px ---------- */
+@media (max-width: 1024px) {
+
+    /* HERO */
+    .PresentersHeroSec {
+        padding-top: 8rem;
+        padding-bottom: 4rem;
+    }
+
+    .eqBars {
+        right: 2rem;
+        bottom: 1.5rem;
+    }
+
+    .presentersHero {
+        position: relative;
+        z-index: 1;
+    }
+
+    .presentersHero h1 {
+        width: 100%;
+        font-size: 2.6rem;
+        line-height: 1.15;
+    }
+
+    .presentersHero p {
+        width: 70%;
+        font-size: 1.1rem;
+    }
+
+    /* PRESENTER CARDS: 3 across, height follows the content */
+    .meetPresenters {
+        gap: 1.5rem;
+        padding-block: 3rem;
+    }
+
+    .ourPresenters {
+        height: auto;
+        padding-bottom: 1.25rem;
+    }
+
+    .ourPresenters img {
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+
+    .ourPresenters h4 {
+        padding-top: 1rem;
+    }
+
+    /* JOIN THE VOICES BANNER */
+    .hireSec {
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    .hireSec button {
+        margin-top: 0;
+        flex-shrink: 0;
+    }
+}
+
+
+/* ---------- SMALL TABLET: up to 768px ---------- */
+@media (max-width: 768px) {
+
+    .meetPresenters {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* ---------- MOBILE: up to 600px ---------- */
+@media (max-width: 600px) {
+
+    /* HERO */
+    .PresentersHeroSec {
+        padding-top: 7rem;
+        padding-bottom: 5.5rem;
+    }
+
+    .eqBars {
+        right: 1rem;
+        bottom: 1rem;
+        opacity: .7;
+        transform: scale(.6);
+        transform-origin: bottom right;
+    }
+
+    .presentersHero h3 {
+        font-size: .85rem;
+    }
+
+    .presentersHero h1 {
+        font-size: 2rem;
+    }
+
+    .presentersHero p {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    /* PRESENTER CARDS: 1 across */
+    .meetPresenters {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        padding-block: 2.5rem;
+    }
+
+    /* JOIN THE VOICES BANNER: stacked */
+    .hireSec {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding-block: 2.5rem;
+    }
+
+    .hireAd h2 {
+        font-size: 1.6rem;
+    }
+}

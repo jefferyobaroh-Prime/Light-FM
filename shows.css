@@ -432,4 +432,81 @@
         font-size: 1.5rem;
     }
 }
+/* =====================================================
+   LIGHT FM - SHOWS PAGE: working day tabs and play buttons
+   Paste at the END of shows.css (after the responsive block).
+   ===================================================== */
+
+.days {
+    padding: .4rem .8rem;
+    border-radius: 999px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.days:hover {
+    background-color: #d3e4fb;
+}
+
+.days.isActive {
+    background-color: #fff;
+    color: #1e6fd9;
+}
+
+.days:focus-visible {
+    outline: 2px solid #1e6fd9;
+    outline-offset: 2px;
+}
+
+/* small dot on today's tab */
+.days.isToday::after {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-left: .35rem;
+    border-radius: 50%;
+    background-color: #1e6fd9;
+    vertical-align: middle;
+}
+
+.days.isActive.isToday::after {
+    background-color: #1e6fd9;
+}
+
+.playBtn {
+    cursor: pointer;
+}
+
+.playBtn:hover:not(:disabled) {
+    background-color: #1e6fd9;
+    color: white;
+}
+
+.playBtn:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+/* desktop: keep the host photos in one straight column ("6:00" and "10:00" differ in width) */
+@media (min-width: 1025px) {
+    .timeSec {
+        min-width: 4rem;
+    }
+
+    .showAbout {
+        min-width: 30rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .daysList {
+        gap: .1rem;
+        padding-inline: .5rem;
+    }
+
+    .days {
+        padding: .35rem .5rem;
+    }
+}
 

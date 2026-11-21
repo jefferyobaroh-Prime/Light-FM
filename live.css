@@ -443,3 +443,108 @@ form button {
         margin-top: 1.25rem;
     }
 }
+
+/* =====================================================
+   LIGHT FM - LIVE PAGE: play control inside the "Now Playing" card
+   Paste at the END of live.css.
+   (This replaces the earlier player.css block. The bar player CSS
+   goes in style.css as before.)
+   ===================================================== */
+
+.cardPlayer {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 2rem 0;
+}
+
+.cardPlay {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 50%;
+    background-color: #1e6fd9;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(30, 111, 217, 0.35);
+}
+
+.cardPlay:hover {
+    background-color: #3283ee;
+}
+
+.cardPlay:focus-visible {
+    outline: 2px solid #1e6fd9;
+    outline-offset: 3px;
+}
+
+.cardText {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.cardStatus {
+    color: #0a1f44;
+    font-size: .85rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.cardSub {
+    color: rgba(0, 0, 0, 0.425);
+    font-size: .75rem;
+}
+
+html[data-lfm-state="error"] .cardStatus {
+    color: #e7000b;
+}
+
+/* same red LIVE pill as the schedule list */
+.cardLive {
+    display: none;
+    background-color: #fef2f2;
+    color: #e7000b;
+    border-radius: 999px;
+    padding: .2rem .8rem;
+    font-size: .7rem;
+    font-weight: 600;
+}
+
+html[data-lfm-state="playing"] .cardLive {
+    display: inline-block;
+}
+
+html[data-lfm-state="loading"] .cardPlay::after {
+    content: "";
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: lfmSpin .8s linear infinite;
+}
+
+/* desktop: the card has a fixed height, so the photo gives up a little room */
+@media (min-width: 1025px) {
+    .nowPlayingCard img {
+        height: 54%;
+    }
+}
+
+@media (max-width: 600px) {
+    .cardPlayer {
+        gap: .75rem;
+    }
+
+    .cardSub {
+        display: none;
+    }
+}

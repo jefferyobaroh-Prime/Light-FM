@@ -972,5 +972,384 @@
     .rightsSec p {
         width: 100%;
     }
+
+    .regBtn {
+        padding-top: -1rem;
+    }
+}
+
+.innerNav > a[aria-current="page"] {
+    color: #1e6fd9;
+    background-color: #e8f1fd;
+    border-radius: .4rem;
+    box-shadow: 0 0 0 .25rem #e8f1fd;
+    align-self: flex-start;
+}
+
+/* =====================================================
+   LIGHT FM - PLAYER STYLES (floating bar + hero "Listen live" button)
+   Paste at the END of style.css.
+   If you pasted the earlier player.css into live.css, delete it from there.
+   ===================================================== */
+
+body.hasLfmPlayer {
+    padding-bottom: 80px;       /* keeps the footer clear of the bar */
+}
+
+main:focus {
+    outline: none;
+}
+
+/* ---------- the floating bar ---------- */
+
+.lfmPlayer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 150;
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    min-height: 78px;
+    padding: .75rem 2rem .75rem 1.5rem;
+    background-color: #172a4e;
+    border-top: 1px solid #2f4060;
+    box-shadow: 0 -8px 24px rgba(10, 31, 68, 0.18);
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+
+.lfmPlay {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    margin: 0 .35rem 0 .2rem;
+    border: none;
+    border-radius: 50%;
+    background-color: #1e6fd9;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 0 6px rgba(30, 111, 217, 0.25);
+}
+
+.lfmPlay:hover {
+    background-color: #3283ee;
+}
+
+.lfmMeta {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: .2rem;
+    min-width: 0;
+}
+
+.lfmTop {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.lfmLive {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .12rem .65rem;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.12);
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+}
+
+.lfmLive i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #e7000b;
+    opacity: .55;
+}
+
+html[data-lfm-state="playing"] .lfmLive i {
+    opacity: 1;
+    animation: lfmPulse 1.4s ease-in-out infinite;
+}
+
+.lfmStatus {
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: .7rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html[data-lfm-state="error"] .lfmStatus {
+    color: #ff9b9b;
+}
+
+.lfmTrack {
+    overflow: hidden;
+    font-size: .9rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lfmTrack strong {
+    font-weight: 600;
+}
+
+.lfmArtist {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.lfmVolume {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: .6rem;
+}
+
+.lfmMute {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+.lfmMute:hover {
+    color: white;
+}
+
+.lfmVol {
+    width: 100px;
+    height: 16px;
+    background: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.lfmVol::-webkit-slider-runnable-track {
+    height: 3px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.lfmVol::-moz-range-track {
+    height: 3px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.lfmVol::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    margin-top: -5.5px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: #1e6fd9;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.lfmVol::-moz-range-thumb {
+    box-sizing: border-box;
+    width: 14px;
+    height: 14px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: #1e6fd9;
+}
+
+.lfmPlay:focus-visible,
+.lfmMute:focus-visible,
+.lfmVol:focus-visible,
+.heroListen:focus-visible {
+    outline: 2px solid #69b5ff;
+    outline-offset: 3px;
+}
+
+/* ---------- waveform (bar and hero) ---------- */
+
+.lfmWave {
+    display: flex;
+    align-items: flex-end;
+    flex-shrink: 0;
+    gap: 3px;
+    height: 40px;
+}
+
+.lfmWave i {
+    width: 2px;
+    height: var(--h);
+    border-radius: 2px;
+    background-color: #3b78d6;
+    opacity: .75;
+    transform-origin: bottom;
+}
+
+html[data-lfm-state="playing"] .lfmWave i {
+    animation: lfmWave 1s ease-in-out infinite;
+}
+
+/* ---------- icon swapping, driven by the player state ---------- */
+
+.lfmIconPause,
+.lfmIconMuted {
+    display: none;
+}
+
+html[data-lfm-state="playing"] .lfmIconPlay {
+    display: none;
+}
+
+html[data-lfm-state="playing"] .lfmIconPause {
+    display: block;
+}
+
+.lfmPlayer.lfmSilent .lfmIconVol {
+    display: none;
+}
+
+.lfmPlayer.lfmSilent .lfmIconMuted {
+    display: block;
+}
+
+/* connecting: spinner in place of the icon */
+html[data-lfm-state="loading"] .lfmIconPlay,
+html[data-lfm-state="loading"] .lfmIconPause {
+    display: none;
+}
+
+html[data-lfm-state="loading"] .lfmPlay::after,
+html[data-lfm-state="loading"] .heroListenBtn::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(128, 128, 128, 0.35);
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: lfmSpin .8s linear infinite;
+}
+
+/* ---------- hero "Listen live" button ---------- */
+
+.heroListen {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    text-align: left;
+    cursor: pointer;
+}
+
+.heroListenBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    margin: 8px;
+    border-radius: 50%;
+    background-color: white;
+    color: #1e6fd9;
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.12);
+}
+
+.heroListen:hover .heroListenBtn {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.18);
+}
+
+.heroListenText {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+}
+
+.heroListenText strong {
+    font-size: .95rem;
+    font-weight: 600;
+}
+
+.heroListenText small {
+    color: #69b5ff;
+    font-size: .75rem;
+}
+
+.heroListen .lfmWave {
+    height: 36px;
+    margin-left: .5rem;
+}
+
+/* ---------- motion ---------- */
+
+@keyframes lfmPulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: .3; }
+}
+
+@keyframes lfmWave {
+    0%, 100% { transform: scaleY(1); }
+    50%      { transform: scaleY(.4); }
+}
+
+@keyframes lfmSpin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html[data-lfm-state="playing"] .lfmLive i,
+    html[data-lfm-state="playing"] .lfmWave i,
+    html[data-lfm-state="loading"] .lfmPlay::after,
+    html[data-lfm-state="loading"] .heroListenBtn::after {
+        animation: none;
+    }
+}
+
+/* ---------- tablet ---------- */
+
+@media (max-width: 900px) {
+    .lfmPlayer .lfmWave {
+        display: none;
+    }
+}
+
+/* ---------- mobile: compact bar; the phone's own buttons handle volume ---------- */
+
+@media (max-width: 600px) {
+    body.hasLfmPlayer {
+        padding-bottom: 72px;
+    }
+
+    .lfmPlayer {
+        gap: .9rem;
+        min-height: 68px;
+        padding: .6rem 1rem .6rem 1rem;
+    }
+
+    .lfmVol {
+        display: none;
+    }
+
+    .heroListen .lfmWave {
+        display: none;
+    }
 }
  

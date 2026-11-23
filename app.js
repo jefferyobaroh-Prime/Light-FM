@@ -34,8 +34,10 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
 
     var STATION_NAME = 'Light FM';
 
-    // Shown in the player bar until the backend can supply the real song.
-    var NOW_PLAYING = { title: 'Golden Hour', artist: 'Jasmine Rae' };
+    // Station details used around the site. Change them here when the final
+    // name, frequency and address are confirmed.
+    var STATION_BLURB = 'The Voice of Sapele. News, music and community talk, live online.';
+    var STATION_ADDRESS = 'c/o Mimshach Chambers, 53 Sapele-Warri Road, Ajogodo, Sapele, Delta State';
 
     // The station's own clock. "On air now" follows this, not the visitor's clock.
     var STATION_TIMEZONE = 'Africa/Lagos';
@@ -77,6 +79,115 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
         try { localStorage.setItem(key, value); } catch (e) { /* storage blocked: ignore */ }
     }
 
+
+    /* =====================================================
+       SCHEDULE (from the business plan, Section 12)
+       Used by the Shows page, the player bar and the Live page.
+       ===================================================== */
+
+    // ----- THE SCHEDULE (from the business plan, Section 12) -----
+    // start / end are 24-hour times. "00:00" as an end means midnight.
+    // Add  host: 'Name'  to any show once presenters are confirmed.
+    // Anything between shows, or overnight, shows as "off air".
+    var WEEKDAY = [
+        { start: '05:00', end: '06:00', title: 'Sunrise This Side of Delta',   about: 'Inspirational messages, headlines, weather, traffic and community announcements' },
+        { start: '06:00', end: '10:00', title: 'Morning Pulse',               about: 'News, current affairs, music, comedy, discussions, interviews and phone-ins' },
+        { start: '10:00', end: '12:00', title: 'The Business of Business',    about: 'Business, SME promotion and market information' },
+        { start: '12:00', end: '13:00', title: 'Midday News & Community Report', about: 'Local, state and national news summary' },
+        { start: '13:00', end: '15:00', title: 'Afternoon Groove',            about: 'Music, dedications and listener interaction' },
+        { start: '15:00', end: '17:00', title: 'Community Voice',             about: 'Community issues, local politics, phone-ins and public engagement' },
+        { start: '17:00', end: '19:00', title: 'Drive Time Sapele',           about: 'Traffic, entertainment, sports and discussions' },
+        { start: '19:00', end: '20:00', title: 'The People’s Forum',     about: 'Current affairs and social issues' },
+        { start: '20:00', end: '22:00', title: 'Naija Delta Spotlight',       about: 'Night Vibes: edutainment, lifestyle and youth discussions' },
+        { start: '22:00', end: '00:00', title: 'Classic & Chill',             about: 'Old-school music and relaxation' }
+    ];
+
+    var SATURDAY = [
+        { start: '06:00', end: '09:00', title: 'Sapele Weekend Wake-Up',       about: 'Community announcements, events and interviews' },
+        { start: '09:00', end: '12:00', title: 'Our Markets & Business Show',  about: 'Entrepreneurs and advertising opportunities' },
+        { start: '12:00', end: '15:00', title: 'Naija Entertainment Zone',     about: 'Music countdown and entertainment news' },
+        { start: '16:00', end: '19:00', title: 'Sports Arena',                 about: 'Football analysis, local sports and fan discussions' },
+        { start: '20:00', end: '00:00', title: 'Weekend Party Zone',           about: 'DJ mixes and events promotion' }
+    ];
+
+    var SUNDAY = [
+        { start: '06:00', end: '10:00', title: 'Faith & Inspiration',  about: 'Religious and inspirational programming' },
+        { start: '10:00', end: '12:00', title: 'Community Voices',     about: 'NGOs, development issues and social conversations' },
+        { start: '12:00', end: '15:00', title: 'Family & Culture',     about: 'Family, traditions, relationships and local stories' },
+        { start: '16:00', end: '19:00', title: 'Youth Corner',         about: 'Education, careers, skills and technology' },
+        { start: '19:00', end: '21:00', title: 'The Churches Today',   about: 'News and stories from the churches' },
+        { start: '21:00', end: '00:00', title: 'Week in Retrospect',   about: 'News, phone-ins, the week in review and a look ahead to the new work week' }
+    ];
+
+    var SCHEDULE = { mon: WEEKDAY, tue: WEEKDAY, wed: WEEKDAY, thu: WEEKDAY, fri: WEEKDAY, sat: SATURDAY, sun: SUNDAY };
+
+    var DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    var DAY_NAMES = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
+
+    function toMinutes(time) {
+        var parts = time.split(':');
+        return Number(parts[0]) * 60 + Number(parts[1]);
+    }
+
+    function endMinutes(show) {
+        var end = toMinutes(show.end);
+        return end <= toMinutes(show.start) ? end + 24 * 60 : end;
+    }
+
+    function prettyTime(time) {
+        var parts = time.split(':');
+        return Number(parts[0]) + ':' + parts[1];
+    }
+
+    function stationNow() {
+        try {
+            var parts = new Intl.DateTimeFormat('en-GB', {
+                timeZone: STATION_TIMEZONE, weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+            }).formatToParts(new Date());
+            var out = {};
+            for (var i = 0; i < parts.length; i++) { out[parts[i].type] = parts[i].value; }
+            return { day: out.weekday.toLowerCase().slice(0, 3), minutes: Number(out.hour) * 60 + Number(out.minute) };
+        } catch (e) {
+            var d = new Date();   // older browsers: fall back to the visitor's own clock
+            return { day: DAYS[(d.getDay() + 6) % 7], minutes: d.getHours() * 60 + d.getMinutes() };
+        }
+    }
+
+    // what is on air now (null when off air), and what comes next
+    function findState() {
+        var now = stationNow();
+        var list = SCHEDULE[now.day];
+        var live = null;
+        var next = null;
+
+        for (var i = 0; i < list.length; i++) {
+            if (toMinutes(list[i].start) <= now.minutes && now.minutes < endMinutes(list[i])) { live = { day: now.day, index: i }; }
+            else if (!next && toMinutes(list[i].start) > now.minutes) { next = { day: now.day, index: i }; }
+        }
+
+        if (!next) {
+            var tomorrow = DAYS[(DAYS.indexOf(now.day) + 1) % 7];
+            next = { day: tomorrow, index: 0 };
+        }
+        return { live: live, next: next, today: now.day };
+    }
+
+    function durationLabel(show) {
+        var hours = Math.round(((endMinutes(show) - toMinutes(show.start)) / 60) * 10) / 10;
+        return hours + (hours === 1 ? ' hr' : ' hrs');
+    }
+
+
+    // what the station is doing right now, in words, for the players
+    function onAirNow() {
+        var st = findState();
+        if (st.live) {
+            var show = SCHEDULE[st.live.day][st.live.index];
+            return { live: true, title: show.title, sub: show.host || STATION_NAME, show: show, next: st.next };
+        }
+        var nextShow = SCHEDULE[st.next.day][st.next.index];
+        return { live: false, title: STATION_NAME, sub: 'Next: ' + nextShow.title + ' at ' + prettyTime(nextShow.start), show: null, next: st.next };
+    }
 
     /* =====================================================
        1. THE PLAYER (one audio, many controls)
@@ -146,8 +257,11 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
         qa('[data-lfm-status]').forEach(function (el) { el.textContent = text.status; });
         qa('[data-lfm-label]').forEach(function (el) { el.textContent = text.label; });
         qa('[data-lfm-sub]').forEach(function (el) { el.textContent = text.sub; });
-        qa('[data-lfm-title]').forEach(function (el) { el.textContent = NOW_PLAYING.title; });
-        qa('[data-lfm-artist]').forEach(function (el) { el.textContent = NOW_PLAYING.artist; });
+        var now = onAirNow();
+        qa('[data-lfm-title]').forEach(function (el) { el.textContent = now.title; });
+        qa('[data-lfm-artist]').forEach(function (el) { el.textContent = now.sub; });
+        qa('[data-lfm-airlabel]').forEach(function (el) { el.textContent = now.live ? 'ON AIR NOW' : 'OFF AIR'; });
+        updateLivePage(now);
 
         qa('[data-lfm-toggle]').forEach(function (el) {
             if (el === barPlay) {
@@ -165,6 +279,10 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
             else if (state === 'loading') { btn.innerHTML = 'connecting…'; }
             else { btn.innerHTML = btn.getAttribute('data-label'); }
         });
+
+        if ('mediaSession' in navigator && window.MediaMetadata) {
+            try { navigator.mediaSession.metadata = new MediaMetadata({ title: now.title, artist: now.sub, album: STATION_NAME }); } catch (e) { /* ignore */ }
+        }
 
         if ('mediaSession' in navigator) {
             try { navigator.mediaSession.playbackState = state === 'playing' ? 'playing' : 'paused'; } catch (e) { /* ignore */ }
@@ -266,7 +384,6 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
     // lock-screen / headset controls
     if ('mediaSession' in navigator && window.MediaMetadata) {
         try {
-            navigator.mediaSession.metadata = new MediaMetadata({ title: NOW_PLAYING.title, artist: NOW_PLAYING.artist, album: STATION_NAME });
             navigator.mediaSession.setActionHandler('play', function () { if (state === 'idle' || state === 'error') { start(false); } });
             navigator.mediaSession.setActionHandler('pause', stop);
             navigator.mediaSession.setActionHandler('stop', stop);
@@ -317,84 +434,21 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
         var tabs = qa('.days', tablist);
         if (tabs.length !== 7) { return; }
 
-        // Each show starts at its time and runs until the next one starts.
-        // The last show of the day runs until the first show of the next day.
-        var WEEKDAY = [
-            { time: '06:00', title: 'The Morning Show', host: 'Maya Bennett', about: 'The best songs, stories and listener moments' },
-            { time: '10:00', title: 'Easy Mornings',    host: 'Chris Adams',  about: 'The best songs, stories and listener moments' },
-            { time: '13:00', title: 'The Midday Mix',   host: 'Sophie King',  about: 'The best songs, stories and listener moments' },
-            { time: '16:00', title: 'Drive Home',       host: 'Daniel Reed',  about: 'The best songs, stories and listener moments' },
-            { time: '20:00', title: 'After Dark',       host: 'Alex Morgan',  about: 'The best songs, stories and listener moments' }
-        ];
-
-        // Give any day its own lineup by replacing WEEKDAY with a list like the one above.
-        // Saturday and Sunday use the weekday lineup until the weekend shows are added.
-        var SCHEDULE = { mon: WEEKDAY, tue: WEEKDAY, wed: WEEKDAY, thu: WEEKDAY, fri: WEEKDAY, sat: WEEKDAY, sun: WEEKDAY };
-
-        var DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-
         var firstImage = q('.hostSec img', wrapper);
         var defaultImage = firstImage ? firstImage.getAttribute('src') : '';
 
-        function toMinutes(time) {
-            var parts = time.split(':');
-            return Number(parts[0]) * 60 + Number(parts[1]);
-        }
-
-        function prettyTime(time) {
-            var parts = time.split(':');
-            return Number(parts[0]) + ':' + parts[1];
-        }
-
-        function stationNow() {
-            try {
-                var parts = new Intl.DateTimeFormat('en-GB', {
-                    timeZone: STATION_TIMEZONE, weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
-                }).formatToParts(new Date());
-                var out = {};
-                for (var i = 0; i < parts.length; i++) { out[parts[i].type] = parts[i].value; }
-                return { day: out.weekday.toLowerCase().slice(0, 3), minutes: Number(out.hour) * 60 + Number(out.minute) };
-            } catch (e) {
-                var d = new Date();   // older browsers: fall back to the visitor's own clock
-                return { day: DAYS[(d.getDay() + 6) % 7], minutes: d.getHours() * 60 + d.getMinutes() };
-            }
-        }
-
-        function findOnAir() {
-            var now = stationNow();
-            var day = now.day;
-            var list = SCHEDULE[day];
-            if (now.minutes < toMinutes(list[0].time)) {
-                // before today's first show: last night's final show is still running
-                day = DAYS[(DAYS.indexOf(day) + 6) % 7];
-                return { day: day, index: SCHEDULE[day].length - 1 };
-            }
-            var index = 0;
-            for (var i = 0; i < list.length; i++) {
-                if (toMinutes(list[i].time) <= now.minutes) { index = i; }
-            }
-            return { day: day, index: index };
-        }
-
-        function durationLabel(list, i) {
-            var start = toMinutes(list[i].time);
-            var end = i + 1 < list.length ? toMinutes(list[i + 1].time) : toMinutes(list[0].time) + 24 * 60;
-            var hours = Math.round(((end - start) / 60) * 10) / 10;
-            return hours + (hours === 1 ? ' hr' : ' hrs');
-        }
-
-        function buildCard(show, status, duration) {
+        function buildCard(show, status) {
             var isLive = status === 'live';
             var card = make('div', isLive ? 'showListCard1' : 'showListCard');
 
             var time = make('div', 'timeSec');
-            time.appendChild(make('h3', '', prettyTime(show.time)));
-            time.appendChild(make('p', '', isLive ? 'Now' : status === 'next' ? 'Up next' : duration));
+            time.appendChild(make('h3', '', prettyTime(show.start)));
+            time.appendChild(make('p', '', isLive ? 'Now' : status === 'next' ? 'Up next' : durationLabel(show)));
 
             var host = make('div', 'hostSec');
             var img = doc.createElement('img');
             img.src = show.img || defaultImage;
-            img.alt = show.host;
+            img.alt = show.host || show.title;
             host.appendChild(img);
 
             var about = make('div', 'showAbout');
@@ -404,18 +458,17 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
                 badge.appendChild(make('p', '', '• LIVE'));
                 about.appendChild(badge);
             }
-            about.appendChild(make('p', '', 'with ' + show.host + ' · ' + show.about));
+            about.appendChild(make('p', '', (show.host ? 'with ' + show.host + ' · ' : '') + show.about));
 
             var play = make('button', 'playBtn', '▶');
             play.type = 'button';
             if (isLive) {
-                // the live show's button joins the broadcast (handled by the player)
                 play.setAttribute('data-lfm-toggle', '');
                 play.setAttribute('aria-label', 'Listen live to ' + show.title);
             } else {
                 play.disabled = true;
-                play.setAttribute('aria-label', show.title + ' starts at ' + prettyTime(show.time));
-                play.title = 'Starts at ' + prettyTime(show.time);
+                play.setAttribute('aria-label', show.title + ' starts at ' + prettyTime(show.start));
+                play.title = 'Starts at ' + prettyTime(show.start);
             }
 
             card.appendChild(time);
@@ -433,20 +486,22 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
 
         function render() {
             var list = SCHEDULE[currentDay];
-            var live = findOnAir();
-            var today = stationNow().day;
+            var state = findState();
 
             panel.innerHTML = '';
+
+            // nothing on air right now: say so, and say what is next
+            if (!state.live && currentDay === state.today) {
+                var nextShow = SCHEDULE[state.next.day][state.next.index];
+                var when = state.next.day === state.today ? 'at ' + prettyTime(nextShow.start) : DAY_NAMES[state.next.day] + ' at ' + prettyTime(nextShow.start);
+                panel.appendChild(make('p', 'showNote', 'Nothing on air right now. Next up: ' + nextShow.title + ' ' + when + '.'));
+            }
+
             for (var i = 0; i < list.length; i++) {
                 var status = 'later';
-                if (live.day === currentDay) {
-                    if (i === live.index) { status = 'live'; }
-                    else if (i === live.index + 1) { status = 'next'; }
-                    else if (i < live.index) { status = 'earlier'; }
-                } else if (today === currentDay && i === 0) {
-                    status = 'next';   // before the first show of today
-                }
-                panel.appendChild(buildCard(list[i], status, durationLabel(list, i)));
+                if (state.live && state.live.day === currentDay && state.live.index === i) { status = 'live'; }
+                else if (state.next.day === currentDay && state.next.index === i) { status = 'next'; }
+                panel.appendChild(buildCard(list[i], status));
             }
         }
 
@@ -490,15 +545,15 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
         });
 
         markToday();
-        select(findOnAir().day, false);
+        select(stationNow().day, false);
         wrapper.appendChild(panel);
         oldCards.forEach(function (card) { wrapper.removeChild(card); });
 
         // keep "on air" accurate while the page stays open
         var lastKey = '';
         function tick() {
-            var live = findOnAir();
-            var key = live.day + live.index + '|' + stationNow().day;
+            var st = findState();
+            var key = (st.live ? st.live.day + st.live.index : 'off') + '|' + st.today;
             if (lastKey !== '' && key !== lastKey) { markToday(); render(); }
             lastKey = key;
         }
@@ -508,7 +563,6 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
 
         render();
         fillWaves();
-        window.lightFMPlayerRefresh && window.lightFMPlayerRefresh();
     }
 
     /* ----- News page: category filters ----- */
@@ -573,11 +627,133 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
         else { card.appendChild(row); }
     }
 
+    // fill the Live page's "Now Playing" card and the list under it from the schedule
+    function updateLivePage(now) {
+        var card = q('.nowPlayingCard');
+        if (!card) { return; }
+
+        var label = q('h4', card);
+        var title = q('h1', card);
+        var line = q('p', card);
+        if (label) { label.textContent = now.live ? 'ON AIR NOW' : 'OFF AIR'; }
+        if (title) { title.textContent = now.title; }
+        if (line) { line.textContent = now.live ? (now.show.host ? 'with ' + now.show.host + ' \u00b7 ' : '') + now.show.about : now.sub; }
+
+        // up next
+        var nextShow = SCHEDULE[now.next.day][now.next.index];
+        var nextRow = q('.upNext .next', card);
+        if (nextRow) {
+            var ps = qa('p', nextRow);
+            if (ps[0]) {
+                var span = doc.createElement('span');
+                span.setAttribute('style', 'color: #0a1f44; font-weight: 600;');
+                span.textContent = nextShow.title;
+                ps[0].textContent = '';
+                ps[0].appendChild(span);
+                ps[0].appendChild(doc.createTextNode(' \u2014 ' + nextShow.about));
+            }
+            if (ps[1]) { ps[1].textContent = prettyTime(nextShow.start); }
+        }
+
+        // "Just played" becomes today's shows (earlier, or coming up if none yet)
+        var section = q('.justPlayedSec');
+        if (!section) { return; }
+        var cards = qa('.justPlayedCard', section);
+        var st = findState();
+        var nowMin = stationNow().minutes;
+        var today = SCHEDULE[st.today];
+        var done = today.filter(function (sh) { return endMinutes(sh) <= nowMin; }).reverse().slice(0, cards.length);
+        var shown = done;
+        var heading = 'EARLIER TODAY';
+        var sub = 'What you may have caught on Light FM.';
+        if (!done.length) {
+            shown = today.filter(function (sh) { return toMinutes(sh.start) > nowMin; }).slice(0, cards.length);
+            heading = 'LATER TODAY';
+            sub = 'What is coming up on Light FM.';
+        }
+        var h3 = q('h3', section);
+        var h1 = q('h1', section);
+        if (h3) { h3.textContent = heading; }
+        if (h1) { h1.textContent = sub; }
+        cards.forEach(function (c, i) {
+            var sh = shown[i];
+            c.hidden = !sh;
+            if (!sh) { return; }
+            var h6 = q('.songDiv h6', c);
+            var sp = q('.songDiv p', c);
+            var tp = qa('p', c);
+            if (h6) { h6.textContent = sh.title; }
+            if (sp) { sp.textContent = sh.host || prettyTime(sh.start) + ' to ' + prettyTime(sh.end === '00:00' ? '24:00' : sh.end); }
+            if (tp.length) { tp[tp.length - 1].textContent = durationLabel(sh); }
+        });
+    }
+
+    /* ----- Home page: "On air today" list from the schedule ----- */
+    function pageHome() {
+        var list = q('.showSection .showList');
+        if (!list) { return; }
+
+        var st = findState();
+        var today = SCHEDULE[st.today];
+        var startIndex = st.live ? st.live.index : (st.next.day === st.today ? st.next.index : today.length);
+        var items = [];
+        for (var i = startIndex; i < today.length && items.length < 5; i++) { items.push({ show: today[i], index: i, tomorrow: false }); }
+        // near the end of the day, carry on into tomorrow's shows
+        
+        if (items.length < 3) {
+            var nextDay = DAYS[(DAYS.indexOf(st.today) + 1) % 7];
+            for (var j = 0; j < SCHEDULE[nextDay].length && items.length < 5; j++) { items.push({ show: SCHEDULE[nextDay][j], index: j, tomorrow: true }); }
+        }
+
+        list.innerHTML = '';
+        var upNextGiven = false;
+        items.forEach(function (item, n) {
+            var isLive = st.live && n === 0 && !item.tomorrow;
+            var card = make('div', isLive ? 'listCard1' : 'listCard');
+
+            var time = make('div', 'time');
+            time.appendChild(make('p', '', item.show.start));
+
+            var info = make('div', 'showInfo');
+            info.appendChild(make('h3', '', item.show.title));
+            info.appendChild(make('p', '', item.show.host ? 'with ' + item.show.host : item.show.about));
+
+            var tag = make('div', 'lineUp');
+            var label = '\u2022 LIVE';
+            if (!isLive) {
+                if (item.tomorrow) { label = 'Tomorrow'; }
+                else if (!upNextGiven) { label = 'Up next'; upNextGiven = true; }
+                else { label = 'Later today'; }
+            }
+            tag.appendChild(make('p', '', label));
+
+            card.appendChild(time);
+            card.appendChild(info);
+            card.appendChild(tag);
+            list.appendChild(card);
+        });
+    }
+
+    /* ----- every page: footer wording and address ----- */
+    function pageFooter() {
+        var blurb = q('.footerSec .logoText p');
+        if (blurb) { blurb.textContent = STATION_BLURB; }
+        var holder = q('.footerSec .logoText');
+        if (holder && !q('.footAddress', holder)) {
+            var address = make('p', 'footAddress', STATION_ADDRESS);
+            address.style.marginTop = '.8rem';
+            address.style.fontSize = '.8rem';
+            holder.appendChild(address);
+        }
+    }
+
     function initPage() {
         pageNav();
         pageShows();
         pageNews();
         pageLive();
+        pageHome();
+        pageFooter();
         fillWaves();
         render();
     }
@@ -697,6 +873,17 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
         go(link.href, true);
     });
 
+
+    // buttons that act as links: <button data-href="shows.html">
+    doc.addEventListener('click', function (event) {
+        var target = event.target && event.target.closest ? event.target.closest('[data-href]') : null;
+        if (!target || event.defaultPrevented) { return; }
+        var link = doc.createElement('a');
+        link.href = target.getAttribute('data-href');
+        if (isSwappable(link)) { go(link.href, true); }
+        else { window.location.href = link.href; }
+    });
+
     window.addEventListener('popstate', function () {
         if (PAGE_SWAP && window.location.protocol !== 'file:') { go(window.location.href, false); }
     });
@@ -707,6 +894,7 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
        ===================================================== */
 
     initPage();
+    setInterval(render, 30000);   // keep the "on air now" wording fresh
 
     // arrived with #play on the address (a "listen live" link): try to start now.
     // Browsers may block this; then the player just waits for a press on play.

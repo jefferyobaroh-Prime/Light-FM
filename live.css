@@ -534,9 +534,28 @@ html[data-lfm-state="loading"] .cardPlay::after {
 
 /* desktop: the card has a fixed height, so the photo gives up a little room */
 @media (min-width: 1025px) {
+    .nowPlayingSec {
+        --card-h: clamp(34rem, 90vh, 48rem);
+        height: calc(var(--card-h) + 22rem);
+    }
+
+    .nowPlayingCard {
+        height: var(--card-h);
+    }
+
     .nowPlayingCard img {
         height: 54%;
     }
+
+    /* the "earlier today" list sits just under the card, whatever the screen height */
+    .justPlayedSec {
+        margin-top: calc(var(--card-h) - .5rem);
+    }
+}
+
+/* long programme descriptions stay inside the card */
+.nowPlayingCard > p {
+    padding-right: 2rem;
 }
 
 @media (max-width: 600px) {
@@ -547,4 +566,12 @@ html[data-lfm-state="loading"] .cardPlay::after {
     .cardSub {
         display: none;
     }
+}
+
+.nowPlayingCard {
+    height: 98vh;
+}
+
+.justPlayedSec {
+    margin-top: 40rem;
 }

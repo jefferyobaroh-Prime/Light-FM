@@ -459,10 +459,11 @@
 }
 
 @media (min-width: 1025px) {
-    /* picture and text share the row equally, however much text there is */
+    /* picture and text share the row equally; the picture stays compact */
     .ourStory {
         height: auto;
-        min-height: 60vh;
+        min-height: 0;
+        align-items: center;
     }
 
     .ourStory img {
@@ -470,7 +471,9 @@
         width: auto;
         height: auto;
         min-width: 0;
-        min-height: 22rem;
+        min-height: 0;
+        aspect-ratio: 4 / 3;
+        max-height: 22rem;
     }
 
     .ourStoryWrapper {
@@ -483,6 +486,25 @@
     }
 }
 
-.ourStory {
-    height: 50vh;
+/* tablet: same compact picture, centred beside the text */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .ourStory {
+        align-items: center;
+    }
+
+    .ourStory img {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 4 / 3;
+        max-height: 20rem;
+    }
+}
+
+/* phones and small tablets: shorter picture */
+@media (max-width: 768px) {
+    .ourStory img {
+        height: auto;
+        aspect-ratio: 16 / 10;
+        max-height: 16rem;
+    }
 }

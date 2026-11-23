@@ -927,6 +927,10 @@
     .onAirWrapper {
         grid-template-columns: 1fr;
     }
+
+    .onAirCard {
+        padding-bottom: 1rem;
+    }
  
     .onAirCard > img {
         height: 200px;

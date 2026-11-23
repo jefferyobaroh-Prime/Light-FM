@@ -49,25 +49,20 @@
     width: 65%;
 }
 
-.nowPlayingSec {
-    height: 130vh;
-}
 
 .nowPlayingCard {
-    width: 45%;
-    height: 90vh;
     background-color: white;
     border-radius: 2rem;
     box-shadow: 0 0 10px 5px rgb(133, 130, 130);
-    z-index: 10;
-    margin-top: -3rem;
     overflow: hidden;
-    position: absolute;
+    padding-bottom: 2rem;
 }
 
 .nowPlayingCard img {
+    display: block;
     width: 100%;
-    height: 60%;
+    aspect-ratio: 16 / 10;
+    max-height: 22rem;
     object-fit: cover;
 }
 
@@ -101,6 +96,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 1rem;
 }
 
 .next p {
@@ -108,19 +104,20 @@
     font-size: .8rem;
 }
 
+.next p:last-child {
+    white-space: nowrap;
+}
+
 .upNext h6 {
     color: #1e6fd9;
 }
 
 .requestForm {
-    position: absolute;
-    margin-left: 41rem;
     background-color: #e2eefd;
-    padding: 2rem 2rem;
+    padding: 2rem;
     border-radius: 2rem;
-    width: 28%;
-    margin-top: -2rem;
-    z-index: -1;
+    scroll-margin-top: 8rem;
+    margin-top: 5rem;
 }
 
 form {
@@ -155,8 +152,8 @@ form button {
 .topDiv {
     background-color: #1e6fd9;
     border-radius: 10px;
-    width: 15%;
-    padding-block: .7rem;
+    width: 3rem;
+    height: 3rem;
 }
 
 .requestForm h1 {
@@ -168,14 +165,13 @@ form button {
 .requestForm p {
     color: rgba(0, 0, 0, 0.671);
     font-size: .8rem;
-    width: 80%;
+    max-width: 90%;
     padding-top: .3rem;
 }
 
 .justPlayedSec {
-    position: absolute;
-    margin-top: 37rem;
-    width: 76%;
+    grid-column: 1 / -1;
+    padding-top: 2.5rem;
 }
 
 .justPlayedSec h3 {
@@ -199,6 +195,7 @@ form button {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: .75rem;
     border-radius: 1rem;
     width: 32%;
     box-shadow: 0 0 6px 0 grey;
@@ -206,15 +203,16 @@ form button {
 }
 
 .IconDiv {
-    height: 7vh;
-    width: 15%;
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
     border-radius: 10px;
     background-color: #e2eefd;
-    padding: .8rem;
 }
 
 .songDiv {
-    width: 70%;
+    flex: 1;
+    min-width: 0;
 }
 
 .songDiv h6 {
@@ -228,16 +226,31 @@ form button {
 }
 
 /* =====================================================
-   LIGHT FM - LIVE PAGE RESPONSIVE
-   Paste at the very END of live.css (after all desktop rules).
-   Nav and footer are already handled by the responsive rules in style.css.
+   LIGHT FM - LIVE PAGE LAYOUT + RESPONSIVE
+   One grid at every size: no fixed heights, no absolute positions,
+   so longer programme text just makes the card taller.
    ===================================================== */
 
+.nowPlayingSec {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+    position: relative;
+    z-index: 2;
+    margin-top: -3rem;
+    padding-bottom: 5rem;
+}
+
+.nowPlaying {
+    min-width: 0;
+}
+
+/* the card overlaps the hero on desktop and tablet */
 
 /* ---------- TABLET: up to 1024px ---------- */
 @media (max-width: 1024px) {
 
-    /* HERO */
     .liveHeroSec {
         padding-top: 8rem;
         padding-bottom: 6rem;
@@ -258,79 +271,18 @@ form button {
     }
 
     .liveHero p {
-        width: 100%;
+        width: 70%;
         font-size: 1.1rem;
     }
 
-    /* NOW PLAYING + REQUEST FORM: absolute positions replaced with a grid */
     .nowPlayingSec {
-        height: auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 1.5rem;
-        align-items: stretch;
-        position: relative;
-        z-index: 2;
-        margin-top: -3rem;
         padding-bottom: 4rem;
-    }
-
-    .nowPlayingCard,
-    .requestForm,
-    .justPlayedSec {
-        position: static;
-        margin: 0;
-        width: 100%;
-        z-index: auto;
-    }
-
-    .nowPlaying {
-        height: 100%;
-    }
-
-    .nowPlayingCard {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 1.5rem;
-    }
-
-    .nowPlayingCard img {
-        height: auto;
-        min-height: 260px;
-        flex: 1;
-    }
-
-    .nowPlayingCard h4 {
-        padding-top: 1rem;
-    }
-
-    .next {
-        gap: 1rem;
-    }
-
-    .next p:last-child {
-        white-space: nowrap;
     }
 
     .requestForm {
         padding: 1.5rem;
-    }
-
-    .requestForm p {
-        width: 100%;
-    }
-
-    .topDiv {
-        width: 3rem;
-        height: 3rem;
-        padding-block: 0;
-    }
-
-    /* JUST PLAYED: 3 across */
-    .justPlayedSec {
-        grid-column: 1 / -1;
-        margin-top: 1.5rem;
     }
 
     .justPlayedWrapper {
@@ -343,35 +295,31 @@ form button {
         width: 100%;
         padding: 1rem;
     }
-
-    .IconDiv {
-        width: 3rem;
-        height: 3rem;
-        flex-shrink: 0;
-    }
-
-    .songDiv {
-        flex: 1;
-        width: auto;
-        padding-inline: .75rem;
-    }
 }
 
 
 /* ---------- SMALL TABLET: up to 768px ---------- */
 @media (max-width: 768px) {
 
+    .liveHero p {
+        width: 85%;
+    }
+
     .nowPlayingSec {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .nowPlayingCard img {
-        flex: none;
-        height: 300px;
+        aspect-ratio: 16 / 9;
+        max-height: 18rem;
     }
 
     .justPlayedWrapper {
         grid-template-columns: 1fr;
+    }
+
+    .requestForm {
+        margin-top: .9rem;
     }
 }
 
@@ -379,7 +327,6 @@ form button {
 /* ---------- MOBILE: up to 600px ---------- */
 @media (max-width: 600px) {
 
-    /* HERO */
     .liveHeroSec {
         padding-top: 7rem;
         padding-bottom: 5rem;
@@ -402,10 +349,10 @@ form button {
     }
 
     .liveHero p {
+        width: 100%;
         font-size: 1rem;
     }
 
-    /* NOW PLAYING */
     .nowPlayingSec {
         gap: 1.25rem;
         padding-bottom: 3rem;
@@ -416,25 +363,23 @@ form button {
     }
 
     .nowPlayingCard img {
-        height: 220px;
-        min-height: 0;
+        aspect-ratio: 16 / 10;
     }
 
     .nowPlayingCard h1 {
         font-size: 1.6rem;
     }
 
-    /* REQUEST FORM */
     .requestForm {
         padding: 1.25rem;
         border-radius: 1.5rem;
+        margin-top: .9rem;
     }
 
     form {
         gap: 1rem;
     }
 
-    /* JUST PLAYED */
     .justPlayedSec h1 {
         font-size: 1.5rem;
     }
@@ -532,27 +477,6 @@ html[data-lfm-state="loading"] .cardPlay::after {
     animation: lfmSpin .8s linear infinite;
 }
 
-/* desktop: the card has a fixed height, so the photo gives up a little room */
-@media (min-width: 1025px) {
-    .nowPlayingSec {
-        --card-h: clamp(34rem, 90vh, 48rem);
-        height: calc(var(--card-h) + 22rem);
-    }
-
-    .nowPlayingCard {
-        height: var(--card-h);
-    }
-
-    .nowPlayingCard img {
-        height: 54%;
-    }
-
-    /* the "earlier today" list sits just under the card, whatever the screen height */
-    .justPlayedSec {
-        margin-top: calc(var(--card-h) - .5rem);
-    }
-}
-
 /* long programme descriptions stay inside the card */
 .nowPlayingCard > p {
     padding-right: 2rem;
@@ -566,12 +490,4 @@ html[data-lfm-state="loading"] .cardPlay::after {
     .cardSub {
         display: none;
     }
-}
-
-.nowPlayingCard {
-    height: 98vh;
-}
-
-.justPlayedSec {
-    margin-top: 40rem;
 }

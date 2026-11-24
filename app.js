@@ -772,7 +772,8 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
         if (link.target && link.target !== '_self') { return false; }
         if (link.hasAttribute('download')) { return false; }
         if (link.origin !== window.location.origin) { return false; }
-        if (!/(\.html?|\/)$/i.test(link.pathname)) { return false; }
+        // site pages: "/", "/page.html", or a clean URL with no file extension ("/live", as Netlify serves them)
+        if (!/(\.html?|\/)$/i.test(link.pathname) && /\.[a-z0-9]+$/i.test(link.pathname)) { return false; }
         // a link to a spot on the page you are already on: let the browser scroll
         if (link.pathname === window.location.pathname && link.search === window.location.search && link.hash) { return false; }
         return true;
@@ -847,6 +848,7 @@ document.querySelectorAll(".innerNav a"). forEach(link => {
             .then(function (response) {
                 var type = response.headers.get('content-type') || '';
                 if (!response.ok || type.indexOf('text/html') === -1) { throw new Error('not a page'); }
+                if (response.url && response.url.indexOf(window.location.origin) === 0) { url = response.url; }
                 return response.text();
             })
             .then(function (html) {

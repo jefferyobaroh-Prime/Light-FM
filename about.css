@@ -193,6 +193,7 @@
     box-shadow: 0 0 5px 0 rgb(221, 213, 213);
     overflow: hidden;
     border-radius: 1rem;
+    padding-bottom: 1rem;
 }
 
 .backTeam img {
@@ -211,6 +212,7 @@
     color: #1e6fd9;
     font-size: .8rem;
     padding-left: 1rem;
+    line-height: .8rem;
 }
 
 /* =====================================================
